@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Zenith Cloud • Minecraft Hosting</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet"/>
+    
+    <style>
+        :root {
+            --minecraft-green: #55c93a;
+            --dark-red-black: #0f0003;
+            --deep-crimson: #220006;
+            --crimson-glow: #5c0000;
+            --text-light: #f0f0f0;
+            --text-muted: #c0c0c0;
+            --glass-bg: rgba(30, 0, 5, 0.4);
+            --glass-border: rgba(100, 0, 0, 0.45);
+            --shadow-glow: 0 10px 40px rgba(139, 0, 0, 0.4);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'VT323', monospace;
+            background: linear-gradient(135deg, #0f0003, #1c0005, #0a0002);
+            color: var(--text-light);
+            min-height: 100vh;
+            background-attachment: fixed;
+            cursor: none;
+            /* Optional: Nether-inspired background image (dark crimson tones) */
+            background-image: 
+                linear-gradient(rgba(10,0,2,0.75), rgba(20,0,4,0.85)),
+                url('https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?w=1600&q=80'); /* fallback */
+            background-size: cover;
+        }
+
+        /* Cursor & Trail - Green glow */
+        .cursor {
+            position: fixed;
+            width: 32px; height: 32px;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.08s ease-out;
+            image-rendering: pixelated;
+        }
+
+        .cursor::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://mc-heads.net/avatar/Steve/32') center/cover;
+            filter: drop-shadow(0 0 8px var(--minecraft-green));
+            animation: pulse 2s infinite;
+        }
+
+        .cursor.grow { transform: translate(-50%, -50%) scale(1.8); }
+
+        @keyframes pulse { 0%,100% { opacity: 0.9; } 50% { opacity: 0.6; } }
+
+        .trail {
+            position: fixed;
+            width: 8px; height: 8px;
+            background: var(--minecraft-green);
+            border: 1px solid rgba(0,0,0,0.5);
+            image-rendering: pixelated;
+            pointer-events: none;
+            opacity: 0.7;
+            animation: trailFade 0.6s forwards;
+            z-index: 9998;
+        }
+
+        @keyframes trailFade { to { transform: scale(0); opacity: 0; } }
+
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1rem 5%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 3px solid var(--minecraft-green);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.6rem;
+            color: var(--minecraft-green);
+            text-shadow: 3px 3px 0 #000;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--minecraft-green);
+            text-shadow: 0 0 10px var(--minecraft-green);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px; 
+            padding: 2.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .hero h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            color: var(--minecraft-green);
+            text-shadow: 6px 6px 0 #000, -3px -3px 0 #000;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p { 
+            font-size: 1.8rem; 
+            margin-bottom: 2.5rem; 
+            color: var(--text-muted); 
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--minecraft-green);
+            color: black;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border: 4px solid #000;
+            box-shadow: 6px 6px 0 #000;
+            transition: all 0.15s ease;
+        }
+
+        .btn:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        section { padding: 8rem 5% 6rem; }
+
+        h2.section-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            color: var(--minecraft-green);
+            text-align: center;
+            margin-bottom: 4rem;
+            text-shadow: 4px 4px 0 #000;
+        }
+
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .plan-card {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            padding: 2.2rem;
+            border-radius: 12px;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--minecraft-green);
+            box-shadow: 0 25px 50px rgba(85,201,58,0.35);
+        }
+
+        .plan-icon {
+            font-size: 3.8rem;
+            margin-bottom: 1.2rem;
+            color: var(--minecraft-green);
+            filter: drop-shadow(0 0 10px rgba(85,201,58,0.6));
+        }
+
+        .plan-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.7rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .price {
+            font-size: 2.6rem;
+            color: var(--minecraft-green);
+            margin: 1rem 0;
+            text-shadow: 3px 3px 0 #000;
+        }
+
+        .features-list {
+            list-style: none;
+            text-align: left;
+            font-size: 1.35rem;
+            margin: 1.5rem 0;
+        }
+
+        .features-list li {
+            margin: 0.9rem 0;
+            position: relative;
+            padding-left: 2.2rem;
+        }
+
+        .features-list li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: var(--minecraft-green);
+        }
+
+        .all-features { 
+            background: rgba(20,0,4,0.5); 
+            padding: 6rem 5%; 
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--dark-red-black);
+            border-top: 4px solid var(--minecraft-green);
+            font-size: 1.3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Header -->
+    <header>
+        <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+            <div class="logo">ZENITH CLOUD</div>
+            <nav>
+                <a href="#budget">Budget</a>
+                <a href="#normal">Normal</a>
+                <a href="#extreme">Extreme</a>
+                <a href="#ultra">Ultra Extreme</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>POWERFUL MINECRAFT<br>HOSTING</h1>
+            <p>High TPS • No Lag • Instant Setup • 99.9% Uptime</p>
+            <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">START YOUR SERVER</a>
+        </div>
+    </section>
+
+    <!-- Budget Plans -->
+    <section id="budget">
+        <h2 class="section-title">BUDGET PLANS</h2>
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-cube"></i></div>
+                <div class="plan-name">Grass Block</div>
+                <div class="price">₹25<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>2 GB RAM</li>
+                    <li>CPU 75%</li>
+                    <li>15 GB SSD</li>
+                    <li>DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-tree"></i></div>
+                <div class="plan-name">Wood Plan</div>
+                <div class="price">₹50<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>4 GB RAM</li>
+                    <li>CPU 100%</li>
+                    <li>20 GB SSD</li>
+                    <li>DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-gem"></i></div>
+                <div class="plan-name">Stone Plan</div>
+                <div class="price">₹75<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>6 GB RAM</li>
+                    <li>CPU 200%</li>
+                    <li>30 GB SSD</li>
+                    <li>DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Normal Plans -->
+    <section id="normal">
+        <h2 class="section-title">NORMAL PLANS</h2>
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="plan-name">Leather Plan</div>
+                <div class="price">₹35<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>3 GB RAM</li>
+                    <li>CPU 100%</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-hammer"></i></div>
+                <div class="plan-name">Iron Plan</div>
+                <div class="price">₹65<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>6 GB RAM</li>
+                    <li>CPU 150%</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-coins"></i></div>
+                <div class="plan-name">Gold Plan</div>
+                <div class="price">₹85<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>8 GB RAM</li>
+                    <li>CPU 200%</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extreme Plans -->
+    <section id="extreme">
+        <h2 class="section-title">EXTREME PLANS</h2>
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-sword"></i></div>
+                <div class="plan-name">Diamond Sword</div>
+                <div class="price">₹60<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>6 GB RAM</li>
+                    <li>Unlimited CPU</li>
+                    <li>Unlimited Storage</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-sword"></i></div>
+                <div class="plan-name">Netherite Sword</div>
+                <div class="price">₹125<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>12 GB RAM</li>
+                    <li>Unlimited CPU</li>
+                    <li>Unlimited Storage</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-gavel"></i></div>
+                <div class="plan-name">Mace Plan</div>
+                <div class="price">₹165<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>16 GB RAM</li>
+                    <li>Unlimited CPU</li>
+                    <li>Unlimited Storage</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ultra Extreme Plans -->
+    <section id="ultra">
+        <h2 class="section-title">ULTRA EXTREME PLANS</h2>
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-star"></i></div>
+                <div class="plan-name">Standard</div>
+                <div class="price">₹120<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>12 GB RAM</li>
+                    <li>Unlimited CPU</li>
+                    <li>Unlimited Storage</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-rocket"></i></div>
+                <div class="plan-name">Advance</div>
+                <div class="price">₹240<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>24 GB RAM</li>
+                    <li>Unlimited CPU</li>
+                    <li>Unlimited Storage</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-crown"></i></div>
+                <div class="plan-name">Pro</div>
+                <div class="price">₹480<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>48 GB RAM</li>
+                    <li>Unlimited CPU</li>
+                    <li>Unlimited Storage</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-bolt"></i></div>
+                <div class="plan-name">Extreme</div>
+                <div class="price">₹720<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>72 GB RAM</li>
+                    <li>Unlimited CPU</li>
+                    <li>Unlimited Storage</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-icon"><i class="fas fa-infinity"></i></div>
+                <div class="plan-name">Infinity</div>
+                <div class="price">₹1099<span style="font-size:1.3rem">/mo</span></div>
+                <ul class="features-list">
+                    <li>Unlimited RAM</li>
+                    <li>Unlimited CPU</li>
+                    <li>Unlimited Storage</li>
+                    <li>Unlimited DDoS Protection</li>
+                </ul>
+                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Features -->
+    <section class="all-features">
+        <h2 class="section-title">EVERY PLAN INCLUDES</h2>
+        <div style="max-width:900px;margin:0 auto;text-align:center;font-size:1.6rem;line-height:2.2">
+            <p>✓ Optimized for Minecraft Java & Bedrock</p>
+            <p>✓ High TPS • Lag-Free Experience</p>
+            <p>✓ Instant Setup • No Waiting</p>
+            <p>✓ Premium Hardware • Latest CPUs</p>
+            <p>✓ 24/7 Expert Support</p>
+            <p>✓ 99.9% Uptime Guarantee</p>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Zenith Cloud • Crafted with <span style="color:var(--minecraft-green)">♥</span> for Minecraft India • Avinash
+    </footer>
+
+    <script>
+        // ── Smooth Minecraft Cursor + Trail ──
+        const cursor = document.querySelector('.cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        const speed = 0.18;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (Math.random() > 0.35) {
+                const trail = document.createElement('div');
+                trail.className = 'trail';
+                trail.style.left = mouseX + 'px';
+                trail.style.top = mouseY + 'px';
+                document.body.appendChild(trail);
+                setTimeout(() => trail.remove(), 700);
+            }
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * speed;
+            cursorY += (mouseY - cursorY) * speed;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+            btn.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+        });
+    </script>
+</body>
+</html>
