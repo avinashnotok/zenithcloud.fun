@@ -30,14 +30,13 @@
             min-height: 100vh;
             background-attachment: fixed;
             cursor: none;
-            /* Optional: Nether-inspired background image (dark crimson tones) */
             background-image: 
                 linear-gradient(rgba(10,0,2,0.75), rgba(20,0,4,0.85)),
-                url('https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?w=1600&q=80'); /* fallback */
+                url('https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?w=1600&q=80');
             background-size: cover;
         }
 
-        /* Cursor & Trail - Green glow */
+        /* Cursor & Trail */
         .cursor {
             position: fixed;
             width: 32px; height: 32px;
@@ -115,7 +114,7 @@
         }
 
         .hero-content {
-            max-width: 900px; 
+            max-width: 900px;
             padding: 2.5rem;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
@@ -132,10 +131,10 @@
             margin-bottom: 1.5rem;
         }
 
-        .hero p { 
-            font-size: 1.8rem; 
-            margin-bottom: 2.5rem; 
-            color: var(--text-muted); 
+        .hero p {
+            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-muted);
         }
 
         .btn {
@@ -183,6 +182,7 @@
             transition: all 0.25s ease;
             backdrop-filter: blur(8px);
             box-shadow: var(--shadow-glow);
+            text-align: center;
         }
 
         .plan-card:hover {
@@ -192,48 +192,57 @@
         }
 
         .plan-icon {
-            font-size: 3.8rem;
-            margin-bottom: 1.2rem;
+            font-size: 4.2rem;
+            margin-bottom: 1rem;
             color: var(--minecraft-green);
-            filter: drop-shadow(0 0 10px rgba(85,201,58,0.6));
         }
 
         .plan-name {
             font-family: 'Press Start 2P', cursive;
-            font-size: 1.7rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.9rem;
+            margin: 0.8rem 0;
+            color: var(--minecraft-green);
         }
 
         .price {
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             color: var(--minecraft-green);
-            margin: 1rem 0;
-            text-shadow: 3px 3px 0 #000;
+            margin: 0.8rem 0;
+            font-weight: bold;
         }
 
         .features-list {
             list-style: none;
-            text-align: left;
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             margin: 1.5rem 0;
+            text-align: left;
+            padding-left: 1.2rem;
         }
 
         .features-list li {
-            margin: 0.9rem 0;
+            margin: 0.8rem 0;
             position: relative;
-            padding-left: 2.2rem;
         }
 
-        .features-list li::before {
-            content: "✔";
+        .features-list li:before {
+            content: "→";
             position: absolute;
-            left: 0;
+            left: -1.2rem;
             color: var(--minecraft-green);
         }
 
-        .all-features { 
-            background: rgba(20,0,4,0.5); 
-            padding: 6rem 5%; 
+        .soon-message {
+            font-size: 2.4rem;
+            color: var(--minecraft-green);
+            padding: 6rem 1rem;
+            text-align: center;
+            text-shadow: 3px 3px 0 #000;
+            line-height: 1.4;
+        }
+
+        .all-features {
+            background: rgba(20,0,4,0.5);
+            padding: 6rem 5%;
         }
 
         footer {
@@ -246,10 +255,9 @@
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
+
     <div class="cursor"></div>
 
-    <!-- Header -->
     <header>
         <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
             <div class="logo">ZENITH CLOUD</div>
@@ -262,219 +270,111 @@
         </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="hero-content">
             <h1>POWERFUL MINECRAFT<br>HOSTING</h1>
             <p>High TPS • No Lag • Instant Setup • 99.9% Uptime</p>
-            <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">START YOUR SERVER</a>
+            <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">JOIN DISCORD & START</a>
         </div>
     </section>
 
-    <!-- Budget Plans -->
+    <!-- Budget → SOON! -->
     <section id="budget">
         <h2 class="section-title">BUDGET PLANS</h2>
-        <div class="plans-container">
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-cube"></i></div>
-                <div class="plan-name">Grass Block</div>
-                <div class="price">₹25<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>2 GB RAM</li>
-                    <li>CPU 75%</li>
-                    <li>15 GB SSD</li>
-                    <li>DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
-
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-tree"></i></div>
-                <div class="plan-name">Wood Plan</div>
-                <div class="price">₹50<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>4 GB RAM</li>
-                    <li>CPU 100%</li>
-                    <li>20 GB SSD</li>
-                    <li>DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
-
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-gem"></i></div>
-                <div class="plan-name">Stone Plan</div>
-                <div class="price">₹75<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>6 GB RAM</li>
-                    <li>CPU 200%</li>
-                    <li>30 GB SSD</li>
-                    <li>DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
-        </div>
+        <div class="soon-message">🔥 COMING SOON! 🔥<br><br>More affordable plans on the way!<br>Stay tuned on Discord!</div>
     </section>
 
-    <!-- Normal Plans -->
+    <!-- Normal → SOON! -->
     <section id="normal">
         <h2 class="section-title">NORMAL PLANS</h2>
-        <div class="plans-container">
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="plan-name">Leather Plan</div>
-                <div class="price">₹35<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>3 GB RAM</li>
-                    <li>CPU 100%</li>
-                    <li>Unlimited DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
-
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-hammer"></i></div>
-                <div class="plan-name">Iron Plan</div>
-                <div class="price">₹65<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>6 GB RAM</li>
-                    <li>CPU 150%</li>
-                    <li>Unlimited DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
-
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-coins"></i></div>
-                <div class="plan-name">Gold Plan</div>
-                <div class="price">₹85<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>8 GB RAM</li>
-                    <li>CPU 200%</li>
-                    <li>Unlimited DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
-        </div>
+        <div class="soon-message">🔥 COMING SOON! 🔥<br><br>Balanced performance plans coming soon!<br>Join Discord for updates!</div>
     </section>
 
-    <!-- Extreme Plans -->
+    <!-- Current powerful Extreme Plans -->
     <section id="extreme">
-        <h2 class="section-title">EXTREME PLANS</h2>
+        <h2 class="section-title">EXTREME PLANS 🔥</h2>
         <div class="plans-container">
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-sword"></i></div>
-                <div class="plan-name">Diamond Sword</div>
-                <div class="price">₹60<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>6 GB RAM</li>
-                    <li>Unlimited CPU</li>
-                    <li>Unlimited Storage</li>
-                    <li>Unlimited DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
 
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-sword"></i></div>
-                <div class="plan-name">Netherite Sword</div>
-                <div class="price">₹125<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>12 GB RAM</li>
-                    <li>Unlimited CPU</li>
-                    <li>Unlimited Storage</li>
-                    <li>Unlimited DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
-
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-gavel"></i></div>
-                <div class="plan-name">Mace Plan</div>
-                <div class="price">₹165<span style="font-size:1.3rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>16 GB RAM</li>
-                    <li>Unlimited CPU</li>
-                    <li>Unlimited Storage</li>
-                    <li>Unlimited DDoS Protection</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ultra Extreme Plans -->
-    <section id="ultra">
-        <h2 class="section-title">ULTRA EXTREME PLANS</h2>
-        <div class="plans-container">
             <div class="plan-card">
                 <div class="plan-icon"><i class="fas fa-star"></i></div>
-                <div class="plan-name">Standard</div>
-                <div class="price">₹120<span style="font-size:1.3rem">/mo</span></div>
+                <div class="plan-name">STARTER PLAN</div>
+                <div class="price">₹90<span style="font-size:1.4rem"> / month</span></div>
                 <ul class="features-list">
-                    <li>12 GB RAM</li>
-                    <li>Unlimited CPU</li>
-                    <li>Unlimited Storage</li>
-                    <li>Unlimited DDoS Protection</li>
+                    <li>8 GB RAM</li>
+                    <li>CPU 150%</li>
+                    <li>30 GB SSD</li>
+                    <li>DDoS Protection</li>
+                    <li>Instant Setup</li>
+                    <li>Optimized for Minecraft SMP</li>
                 </ul>
                 <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
             </div>
 
             <div class="plan-card">
                 <div class="plan-icon"><i class="fas fa-rocket"></i></div>
-                <div class="plan-name">Advance</div>
-                <div class="price">₹240<span style="font-size:1.3rem">/mo</span></div>
+                <div class="plan-name">BOOSTER PLAN</div>
+                <div class="price">₹150<span style="font-size:1.4rem"> / month</span></div>
                 <ul class="features-list">
-                    <li>24 GB RAM</li>
-                    <li>Unlimited CPU</li>
-                    <li>Unlimited Storage</li>
-                    <li>Unlimited DDoS Protection</li>
+                    <li>12 GB RAM</li>
+                    <li>CPU 250%</li>
+                    <li>60 GB SSD</li>
+                    <li>DDoS Protection</li>
+                    <li>Better TPS for public SMP</li>
                 </ul>
                 <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
             </div>
 
             <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-crown"></i></div>
-                <div class="plan-name">Pro</div>
-                <div class="price">₹480<span style="font-size:1.3rem">/mo</span></div>
+                <div class="plan-icon"><i class="fas fa-fire"></i></div>
+                <div class="plan-name">PRO PLAN</div>
+                <div class="price">₹250<span style="font-size:1.4rem"> / month</span></div>
                 <ul class="features-list">
-                    <li>48 GB RAM</li>
-                    <li>Unlimited CPU</li>
-                    <li>Unlimited Storage</li>
-                    <li>Unlimited DDoS Protection</li>
+                    <li>16 GB RAM</li>
+                    <li>CPU 400%</li>
+                    <li>120 GB SSD</li>
+                    <li>Advanced DDoS Protection</li>
+                    <li>Best for plugins & mini-games</li>
                 </ul>
                 <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
             </div>
 
             <div class="plan-card">
                 <div class="plan-icon"><i class="fas fa-bolt"></i></div>
-                <div class="plan-name">Extreme</div>
-                <div class="price">₹720<span style="font-size:1.3rem">/mo</span></div>
+                <div class="plan-name">POWER PLAN</div>
+                <div class="price">₹400<span style="font-size:1.4rem"> / month</span></div>
                 <ul class="features-list">
-                    <li>72 GB RAM</li>
-                    <li>Unlimited CPU</li>
-                    <li>Unlimited Storage</li>
-                    <li>Unlimited DDoS Protection</li>
+                    <li>24 GB RAM</li>
+                    <li>CPU 700%</li>
+                    <li>200 GB SSD</li>
+                    <li>Advanced DDoS Protection</li>
+                    <li>For heavy servers & networks</li>
                 </ul>
                 <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
             </div>
 
             <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-infinity"></i></div>
-                <div class="plan-name">Infinity</div>
-                <div class="price">₹1099<span style="font-size:1.3rem">/mo</span></div>
+                <div class="plan-icon"><i class="fas fa-crown"></i></div>
+                <div class="plan-name">ULTIMATE PLAN</div>
+                <div class="price">₹600<span style="font-size:1.4rem"> / month</span></div>
                 <ul class="features-list">
-                    <li>Unlimited RAM</li>
-                    <li>Unlimited CPU</li>
-                    <li>Unlimited Storage</li>
-                    <li>Unlimited DDoS Protection</li>
+                    <li>32 GB RAM</li>
+                    <li>CPU 1000%</li>
+                    <li>300 GB NVMe</li>
+                    <li>Premium DDoS Shield</li>
+                    <li>For large networks & high player count</li>
                 </ul>
                 <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT</a>
             </div>
+
         </div>
     </section>
 
-    <!-- Common Features -->
+    <!-- Ultra Extreme → SOON! -->
+    <section id="ultra">
+        <h2 class="section-title">ULTRA EXTREME PLANS</h2>
+        <div class="soon-message">🔥 COMING SOON! 🔥<br><br>Even more extreme power planned!<br>Stay tuned on Discord!</div>
+    </section>
+
     <section class="all-features">
         <h2 class="section-title">EVERY PLAN INCLUDES</h2>
         <div style="max-width:900px;margin:0 auto;text-align:center;font-size:1.6rem;line-height:2.2">
@@ -492,7 +392,6 @@
     </footer>
 
     <script>
-        // ── Smooth Minecraft Cursor + Trail ──
         const cursor = document.querySelector('.cursor');
         let mouseX = 0, mouseY = 0;
         let cursorX = 0, cursorY = 0;
