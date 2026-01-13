@@ -1,509 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Zenith Cloud • Premium Minecraft Hosting</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet"/>
-    
-    <style>
-        :root {
-            --primary-green: #4ade80;
-            --dark-bg: #050002;
-            --deep-crimson: #18000a;
-            --glow-green: rgba(74, 222, 128, 0.7);
-            --glass-bg: rgba(20, 20, 30, 0.18);
-            --glass-border: rgba(74, 222, 128, 0.25);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zenith Cloud • Premium Minecraft Hosting</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet"/>
 
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            min-height: 100vh;
-            background-attachment: fixed;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(74,222,128,0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 30%, rgba(74,222,128,0.06) 0%, transparent 50%);
-        }
+<style>
+:root {
+    --primary: #a855f7;
+    --secondary: #7c3aed;
+    --dark-bg: #050009;
+    --glow: rgba(168,85,247,0.75);
 
-        /* Premium glowing cursor */
-        .cursor {
-            position: fixed;
-            width: 28px;
-            height: 28px;
-            border: 1.5px solid var(--primary-green);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: all 0.12s ease-out;
-            box-shadow: 0 0 20px var(--glow-green), inset 0 0 8px var(--glow-green);
-            opacity: 0.75;
-            mix-blend-mode: screen;
-        }
+    --glass-bg: rgba(35, 20, 60, 0.25);
+    --glass-border: rgba(168,85,247,0.35);
 
-        .cursor.grow {
-            width: 48px;
-            height: 48px;
-            border-width: 2px;
-            opacity: 0.95;
-        }
+    --text-primary: #f5f3ff;
+    --text-secondary: #c4b5fd;
+}
 
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.2rem 6%;
-            background: rgba(10, 10, 20, 0.45);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border-bottom: 1px solid rgba(74, 222, 128, 0.25);
-            z-index: 1000;
-            transition: all 0.4s ease;
-        }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-        header.scrolled {
-            background: rgba(10, 10, 20, 0.75);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(168,85,247,0.12), transparent 45%),
+        radial-gradient(circle at 85% 30%, rgba(124,58,237,0.10), transparent 55%);
+}
 
-        .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* Cursor */
+.cursor {
+    position: fixed;
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px var(--glow), inset 0 0 8px var(--glow);
+    transition: 0.12s ease-out;
+}
+.cursor.grow { width:48px; height:48px; }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #4ade80, #a3e635);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(74,222,128,0.6);
-        }
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.2rem 6%;
+    background: rgba(15,10,40,0.65);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+}
+header.scrolled {
+    box-shadow: 0 10px 30px rgba(0,0,0,.6);
+}
 
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-left: 2.5rem;
-            font-weight: 500;
-            transition: all 0.35s ease;
-            position: relative;
-        }
+.nav-container {
+    max-width: 1600px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -6px;
-            left: 0;
-            background: var(--primary-green);
-            transition: width 0.35s ease;
-            box-shadow: 0 0 12px var(--glow-green);
-        }
+.logo {
+    font-family: 'Orbitron';
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 25px var(--glow);
+}
 
-        nav a:hover {
-            color: white;
-        }
+nav a {
+    color: var(--text-secondary);
+    margin-left: 2.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+}
+nav a::after {
+    content:'';
+    position:absolute;
+    bottom:-6px; left:0;
+    width:0; height:2px;
+    background: var(--primary);
+    transition:.3s;
+}
+nav a:hover::after { width:100%; }
+nav a:hover { color:white; }
 
-        nav a:hover::after {
-            width: 100%;
-        }
+/* Hero */
+.hero {
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:0 5%;
+}
+.hero h1 {
+    font-family:'Orbitron';
+    font-size:clamp(3.5rem,10vw,8rem);
+    background: linear-gradient(90deg,var(--primary),var(--secondary),var(--primary));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-size:200% auto;
+    animation:shine 7s linear infinite;
+    text-shadow:0 0 50px var(--glow);
+}
+.hero p {
+    font-size:1.6rem;
+    margin:1.5rem auto 3rem;
+    max-width:800px;
+    color:var(--text-secondary);
+}
 
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 5%;
-            position: relative;
-        }
+.btn {
+    display:inline-block;
+    padding:1.3rem 3.2rem;
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+    font-weight:700;
+    border-radius:14px;
+    text-decoration:none;
+    box-shadow:0 15px 45px var(--glow);
+    transition:.4s cubic-bezier(.175,.885,.32,1.275);
+}
+.btn:hover { transform:translateY(-8px) scale(1.05); }
 
-        .hero-content {
-            max-width: 1100px;
-            animation: fadeInUp 1.4s ease-out;
-        }
+/* Sections */
+section { padding:10rem 6% 8rem; }
 
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3.5rem, 10vw, 8rem);
-            font-weight: 900;
-            background: linear-gradient(90deg, #4ade80, #a3e635, #4ade80);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: textShine 7s linear infinite;
-            margin-bottom: 1.4rem;
-            line-height: 0.95;
-            text-shadow: 0 0 50px rgba(74,222,128,0.6);
-        }
+.section-title {
+    font-family:'Orbitron';
+    font-size:clamp(2.8rem,7vw,5rem);
+    text-align:center;
+    margin-bottom:5rem;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 40px var(--glow);
+}
 
-        .hero p {
-            font-size: clamp(1.3rem, 4vw, 1.7rem);
-            color: var(--text-secondary);
-            max-width: 780px;
-            margin: 0 auto 3rem;
-            opacity: 0.9;
-        }
+.soon-message {
+    font-size:3.5rem;
+    font-weight:900;
+    text-align:center;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    padding:6rem 2rem;
+}
 
-        .btn {
-            display: inline-block;
-            padding: 1.3rem 3.2rem;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
-            color: black;
-            font-weight: 700;
-            font-size: 1.25rem;
-            text-decoration: none;
-            border-radius: 12px;
-            box-shadow: 0 12px 35px rgba(74,222,128,0.45);
-            transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255,255,255,0.18);
-        }
+/* Plans */
+.plans-container {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+    gap:3rem;
+    max-width:1800px;
+    margin:auto;
+}
 
-        .btn:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 25px 60px rgba(74,222,128,0.7);
-        }
+.plan-card {
+    background:var(--glass-bg);
+    border:1px solid var(--glass-border);
+    border-radius:22px;
+    padding:3rem 2.5rem;
+    backdrop-filter:blur(18px);
+    transition:.6s cubic-bezier(.23,1,.32,1);
+}
+.plan-card:hover {
+    transform:translateY(-22px);
+    box-shadow:0 40px 100px var(--glow);
+}
 
-        section {
-            padding: 10rem 6% 8rem;
-        }
+.plan-icon {
+    font-size:4rem;
+    color:var(--primary);
+    margin-bottom:1.2rem;
+}
+.plan-name { font-size:2.2rem; margin-bottom:1rem; }
+.price {
+    font-size:3.6rem;
+    font-weight:900;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.features-list {
+    list-style:none;
+    margin:2rem 0 2.5rem;
+    color:var(--text-secondary);
+}
+.features-list li {
+    margin:1rem 0;
+    padding-left:2rem;
+    position:relative;
+}
+.features-list li::before {
+    content:"✓";
+    position:absolute;
+    left:0;
+    color:var(--primary);
+}
 
-        h2.section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.8rem, 7vw, 5rem);
-            text-align: center;
-            margin-bottom: 5rem;
-            background: linear-gradient(90deg, #4ade80, #a3e635);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(74,222,128,0.6);
-            animation: textShine 9s linear infinite;
-        }
+@keyframes shine {
+    0% { background-position:200% center; }
+    100% { background-position:-200% center; }
+}
 
-        .plans-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 3rem;
-            max-width: 1800px;
-            margin: 0 auto;
-        }
-
-        .plan-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 3rem 2.5rem;
-            backdrop-filter: blur(18px);
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .plan-card::before {
-            content: '';
-            position: absolute;
-            inset: -50%;
-            background: radial-gradient(circle at 30% 20%, rgba(74,222,128,0.25), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.8s;
-            pointer-events: none;
-        }
-
-        .plan-card:hover::before {
-            opacity: 1;
-        }
-
-        .plan-card:hover {
-            transform: translateY(-24px);
-            border-color: var(--primary-green);
-            box-shadow: 0 40px 100px rgba(74,222,128,0.4);
-        }
-
-        .plan-icon {
-            font-size: 4.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-green);
-            filter: drop-shadow(0 0 20px rgba(74,222,128,0.7));
-        }
-
-        .plan-name {
-            font-size: 2.2rem;
-            margin-bottom: 1.2rem;
-            color: white;
-        }
-
-        .price {
-            font-size: 3.6rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #4ade80, #a3e635);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 1rem 0;
-            text-shadow: 0 0 30px rgba(74,222,128,0.6);
-        }
-
-        .features-list {
-            list-style: none;
-            text-align: left;
-            font-size: 1.15rem;
-            margin: 2rem 0 2.5rem;
-            color: var(--text-secondary);
-        }
-
-        .features-list li {
-            margin: 1rem 0;
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .features-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--primary-green);
-            font-weight: bold;
-        }
-
-        .soon-message {
-            font-size: 3.5rem;
-            font-weight: 900;
-            text-align: center;
-            background: linear-gradient(90deg, #4ade80, #a3e635);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(74,222,128,0.6);
-            padding: 10rem 2rem;
-            animation: textShine 7s linear infinite;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(60px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes textShine {
-            0%   { background-position: 200% center; }
-            100% { background-position: -200% center; }
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            header { padding: 1rem 5%; }
-            .nav-container { flex-direction: column; gap: 1.2rem; }
-            nav a { margin: 0 1.2rem; font-size: 1.1rem; }
-            .hero-content { padding: 3rem 2rem; margin: 0 1.5rem; }
-            section { padding: 6rem 5% 4rem; }
-            .plans-container { gap: 2.5rem; }
-            .plan-card { padding: 2.2rem 1.8rem; }
-            .btn { width: 100%; text-align: center; }
-        }
-    </style>
+/* Mobile */
+@media(max-width:768px){
+    nav a { margin:0 1rem; }
+    .btn { width:100%; }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="cursor"></div>
+<div class="cursor"></div>
 
-    <header>
-        <div class="nav-container">
-            <div class="logo">ZENITH CLOUD</div>
-            <nav>
-                <a href="#budget">Budget</a>
-                <a href="#normal">Normal</a>
-                <a href="#extreme">Extreme</a>
-                <a href="#ultra">Ultra</a>
-            </nav>
-        </div>
-    </header>
+<header>
+<div class="nav-container">
+<div class="logo">ZENITH CLOUD</div>
+<nav>
+<a href="#budget">Budget</a>
+<a href="#normal">Normal</a>
+<a href="#extreme">Extreme</a>
+<a href="#ultra">Ultra</a>
+</nav>
+</div>
+</header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>PREMIUM MINECRAFT<br>HOSTING</h1>
-            <p>Enterprise-grade performance • Zero lag • Rock-solid stability • Advanced protection</p>
-            <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">JOIN DISCORD & GET STARTED</a>
-        </div>
-    </section>
+<section class="hero">
+<div>
+<h1>PREMIUM MINECRAFT<br>HOSTING</h1>
+<p>Enterprise-grade performance • Zero lag • Purple-powered infrastructure</p>
+<a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">JOIN DISCORD</a>
+</div>
+</section>
 
-    <section id="budget">
-        <h2 class="section-title">BUDGET PLANS</h2>
-        <div class="soon-message">COMING SOON</div>
-    </section>
+<section id="budget">
+<h2 class="section-title">BUDGET PLANS</h2>
+<div class="soon-message">COMING SOON</div>
+</section>
 
-    <section id="normal">
-        <h2 class="section-title">NORMAL PLANS</h2>
-        <div class="soon-message">COMING SOON</div>
-    </section>
+<section id="normal">
+<h2 class="section-title">NORMAL PLANS</h2>
+<div class="soon-message">COMING SOON</div>
+</section>
 
-    <section id="extreme">
-        <h2 class="section-title">EXTREME PLANS</h2>
-        <div class="plans-container">
+<section id="extreme">
+<h2 class="section-title">EXTREME PLANS</h2>
 
-            <!-- STARTER -->
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-star"></i></div>
-                <div class="plan-name">STARTER</div>
-                <div class="price">₹90<span style="font-size:1.5rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>8 GB RAM</li>
-                    <li>150% CPU Allocation</li>
-                    <li>30 GB SSD Storage</li>
-                    <li>DDoS Protection</li>
-                    <li>Instant Setup</li>
-                    <li>Optimized for SMP</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT PLAN</a>
-            </div>
+<div class="plans-container">
 
-            <!-- BOOSTER -->
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-rocket"></i></div>
-                <div class="plan-name">BOOSTER</div>
-                <div class="price">₹150<span style="font-size:1.5rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>12 GB RAM</li>
-                    <li>250% CPU Allocation</li>
-                    <li>60 GB SSD Storage</li>
-                    <li>DDoS Protection</li>
-                    <li>Superior TPS</li>
-                    <li>Public SMP Ready</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT PLAN</a>
-            </div>
+<!-- STARTER -->
+<div class="plan-card">
+<div class="plan-icon"><i class="fas fa-star"></i></div>
+<div class="plan-name">STARTER</div>
+<div class="price">₹90/mo</div>
+<ul class="features-list">
+<li>8 GB RAM</li>
+<li>150% CPU</li>
+<li>30 GB SSD</li>
+<li>DDoS Protection</li>
+</ul>
+<a class="btn" href="#">SELECT PLAN</a>
+</div>
 
-            <!-- PRO -->
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-fire"></i></div>
-                <div class="plan-name">PRO</div>
-                <div class="price">₹250<span style="font-size:1.5rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>16 GB RAM</li>
-                    <li>400% CPU Allocation</li>
-                    <li>120 GB SSD Storage</li>
-                    <li>Advanced DDoS Protection</li>
-                    <li>Plugin & Mini-game Optimized</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT PLAN</a>
-            </div>
+<!-- BOOSTER -->
+<div class="plan-card">
+<div class="plan-icon"><i class="fas fa-rocket"></i></div>
+<div class="plan-name">BOOSTER</div>
+<div class="price">₹150/mo</div>
+<ul class="features-list">
+<li>12 GB RAM</li>
+<li>250% CPU</li>
+<li>60 GB SSD</li>
+<li>Public SMP Ready</li>
+</ul>
+<a class="btn" href="#">SELECT PLAN</a>
+</div>
 
-            <!-- POWER -->
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-bolt"></i></div>
-                <div class="plan-name">POWER</div>
-                <div class="price">₹400<span style="font-size:1.5rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>24 GB RAM</li>
-                    <li>700% CPU Allocation</li>
-                    <li>200 GB SSD Storage</li>
-                    <li>Advanced DDoS Protection</li>
-                    <li>Heavy Servers & Networks</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT PLAN</a>
-            </div>
+<!-- PRO -->
+<div class="plan-card">
+<div class="plan-icon"><i class="fas fa-fire"></i></div>
+<div class="plan-name">PRO</div>
+<div class="price">₹250/mo</div>
+<ul class="features-list">
+<li>16 GB RAM</li>
+<li>400% CPU</li>
+<li>120 GB NVMe</li>
+<li>Plugin Optimized</li>
+</ul>
+<a class="btn" href="#">SELECT PLAN</a>
+</div>
 
-            <!-- ULTIMATE -->
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-crown"></i></div>
-                <div class="plan-name">ULTIMATE</div>
-                <div class="price">₹600<span style="font-size:1.5rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>32 GB RAM</li>
-                    <li>1000% CPU Allocation</li>
-                    <li>300 GB NVMe Storage</li>
-                    <li>Premium DDoS Shield</li>
-                    <li>Large Networks & High Players</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT PLAN</a>
-            </div>
+<!-- POWER -->
+<div class="plan-card">
+<div class="plan-icon"><i class="fas fa-bolt"></i></div>
+<div class="plan-name">POWER</div>
+<div class="price">₹400/mo</div>
+<ul class="features-list">
+<li>24 GB RAM</li>
+<li>700% CPU</li>
+<li>200 GB NVMe</li>
+<li>Heavy Servers</li>
+</ul>
+<a class="btn" href="#">SELECT PLAN</a>
+</div>
 
-            <!-- NEW: LEGEND -->
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-skull-crossbones"></i></div>
-                <div class="plan-name">LEGEND</div>
-                <div class="price">₹950<span style="font-size:1.5rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>48 GB RAM</li>
-                    <li>1500% CPU Allocation</li>
-                    <li>500 GB NVMe Storage</li>
-                    <li>Enterprise DDoS Protection</li>
-                    <li>Dedicated Resources</li>
-                    <li>Priority 24/7 Support</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT PLAN</a>
-            </div>
+<!-- ULTIMATE -->
+<div class="plan-card">
+<div class="plan-icon"><i class="fas fa-crown"></i></div>
+<div class="plan-name">ULTIMATE</div>
+<div class="price">₹600/mo</div>
+<ul class="features-list">
+<li>32 GB RAM</li>
+<li>1000% CPU</li>
+<li>300 GB NVMe</li>
+<li>Large Networks</li>
+</ul>
+<a class="btn" href="#">SELECT PLAN</a>
+</div>
 
-            <!-- NEW: TITAN -->
-            <div class="plan-card">
-                <div class="plan-icon"><i class="fas fa-gem"></i></div>
-                <div class="plan-name">TITAN</div>
-                <div class="price">₹1499<span style="font-size:1.5rem">/mo</span></div>
-                <ul class="features-list">
-                    <li>64 GB RAM</li>
-                    <li>2500% CPU Allocation</li>
-                    <li>1 TB NVMe Storage</li>
-                    <li>Ultimate DDoS Mitigation</li>
-                    <li>Custom Hardware Tuning</li>
-                    <li>VIP Support & Features</li>
-                </ul>
-                <a href="https://discord.gg/ShKgwfbhsT" target="_blank" class="btn">SELECT PLAN</a>
-            </div>
+<!-- LEGEND -->
+<div class="plan-card">
+<div class="plan-icon"><i class="fas fa-skull-crossbones"></i></div>
+<div class="plan-name">LEGEND</div>
+<div class="price">₹950/mo</div>
+<ul class="features-list">
+<li>48 GB RAM</li>
+<li>1500% CPU</li>
+<li>500 GB NVMe</li>
+<li>Priority Support</li>
+</ul>
+<a class="btn" href="#">SELECT PLAN</a>
+</div>
 
-        </div>
-    </section>
+<!-- TITAN -->
+<div class="plan-card">
+<div class="plan-icon"><i class="fas fa-gem"></i></div>
+<div class="plan-name">TITAN</div>
+<div class="price">₹1499/mo</div>
+<ul class="features-list">
+<li>64 GB RAM</li>
+<li>2500% CPU</li>
+<li>1 TB NVMe</li>
+<li>VIP Features</li>
+</ul>
+<a class="btn" href="#">SELECT PLAN</a>
+</div>
 
-    <section id="ultra">
-        <h2 class="section-title">ULTRA EXTREME PLANS</h2>
-        <div class="soon-message">COMING SOON<br>Next-level power incoming</div>
-    </section>
+</div>
+</section>
 
-    <script>
-        // Cursor
-        const cursor = document.querySelector('.cursor');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-        const speed = 0.16;
+<section id="ultra">
+<h2 class="section-title">ULTRA EXTREME PLANS</h2>
+<div class="soon-message">COMING SOON<br>Next-level power incoming</div>
+</section>
 
-        document.addEventListener('mousemove', e => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+<script>
+const cursor=document.querySelector('.cursor');
+let x=0,y=0,mx=0,my=0;
 
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * speed;
-            cursorY += (mouseY - cursorY) * speed;
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
+document.addEventListener('mousemove',e=>{
+mx=e.clientX; my=e.clientY;
+});
 
-        animateCursor();
+(function loop(){
+x+=(mx-x)*0.16;
+y+=(my-y)*0.16;
+cursor.style.left=x+'px';
+cursor.style.top=y+'px';
+requestAnimationFrame(loop);
+})();
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            document.querySelector('header').classList.toggle('scrolled', window.scrollY > 100);
-        });
+window.addEventListener('scroll',()=>{
+document.querySelector('header')
+.classList.toggle('scrolled',window.scrollY>100);
+});
 
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('mouseenter', () => cursor.classList.add('grow'));
-            btn.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
-        });
-    </script>
+document.querySelectorAll('.btn').forEach(b=>{
+b.addEventListener('mouseenter',()=>cursor.classList.add('grow'));
+b.addEventListener('mouseleave',()=>cursor.classList.remove('grow'));
+});
+</script>
+
 </body>
 </html>
